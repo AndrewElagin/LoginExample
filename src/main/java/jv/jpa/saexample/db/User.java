@@ -37,19 +37,19 @@ public class User implements Serializable {
     private Integer id;
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 32)
+    @Size(min = 1, max = 45)
     @Column(name = "name")
     private String name;
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 32)
+    @Size(min = 1, max = 45)
     @Column(name = "password")
     private String password;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 5)
-    @Column(name = "role")
-    private String role;
+    @Column(name = "authority")
+    private String authority;
 
     public User() {
     }
@@ -58,11 +58,11 @@ public class User implements Serializable {
         this.id = id;
     }
 
-    public User(Integer id, String name, String password, String role) {
+    public User(Integer id, String name, String password, String authority) {
         this.id = id;
         this.name = name;
         this.password = password;
-        this.role = role;
+        this.authority = authority;
     }
 
     public Integer getId() {
@@ -89,18 +89,21 @@ public class User implements Serializable {
         this.password = password;
     }
 
-    public String getRole() {
-        return role;
+    public String getAuthority() {
+        return authority;
     }
 
-    public void setRole(String role) {
-        this.role = role;
+    public void setAuthority(String authority) {
+        this.authority = authority;
     }
 
     @Override
     public int hashCode() {
-        int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
+        int hash = 3;
+        hash = 83 * hash + Objects.hashCode(this.id);
+        hash = 83 * hash + Objects.hashCode(this.name);
+        hash = 83 * hash + Objects.hashCode(this.password);
+        hash = 83 * hash + Objects.hashCode(this.authority);
         return hash;
     }
 
@@ -122,7 +125,7 @@ public class User implements Serializable {
         if (!Objects.equals(this.password, other.password)) {
             return false;
         }
-        if (!Objects.equals(this.role, other.role)) {
+        if (!Objects.equals(this.authority, other.authority)) {
             return false;
         }
         if (!Objects.equals(this.id, other.id)) {
@@ -133,11 +136,7 @@ public class User implements Serializable {
 
     @Override
     public String toString() {
-        return "User{" + "id=" + id + ", name=" + name + ", password=" + password + ", role=" + role + '}';
+        return "User{" + "id=" + id + ", name=" + name + ", password=" + password + ", authority=" + authority + '}';
     }
 
-   
-
-    
-    
 }

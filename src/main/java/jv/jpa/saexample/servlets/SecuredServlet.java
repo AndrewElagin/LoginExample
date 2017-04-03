@@ -5,7 +5,6 @@
  */
 package jv.jpa.saexample.servlets;
 
-import jv.jpa.saexample.db.User;
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -13,6 +12,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import jv.jpa.saexample.db.User;
 
 /**
  *
@@ -25,7 +25,7 @@ public class SecuredServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         HttpSession s = req.getSession();
         User u = (User) s.getAttribute("user");
-        System.out.println("User form secured "+u);
+        System.out.println("User form secured " + u);
         String role = (String) s.getAttribute("role");
         req.setAttribute("user", u);
         req.setAttribute("role", role);
@@ -33,16 +33,16 @@ public class SecuredServlet extends HttpServlet {
         req.getRequestDispatcher("/WEB-INF/success.jsp").forward(req, resp);
     }
 
-       @Override
+    @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         HttpSession s = req.getSession();
         User u = (User) s.getAttribute("user");
-        System.out.println("User form secured "+u);
+        System.out.println("User form secured " + u);
         String role = (String) s.getAttribute("role");
         req.setAttribute("user", u);
         req.setAttribute("role", role);
         req.getRequestDispatcher("/WEB-INF/success.jsp").forward(req, resp);
-       
+
     }
 
     @Override

@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package jv.jpa.saexample.filters;
 
 import java.io.IOException;
@@ -18,18 +13,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-/**
- *
- * @author Rich
- */
-@WebFilter(filterName = "MainFIlter", urlPatterns = {"/secured1"})
+@WebFilter(filterName = "MainFIlter", urlPatterns = {"/secured"})
 public class MainFIlter implements Filter {
 
     private static final boolean debug = true;
 
     // The filter configuration object we are associated with.  If
     // this value is null, this filter instance is not currently
-    // configured. 
+    // configured.
     private FilterConfig filterConfig = null;
 
     public MainFIlter() {
@@ -45,16 +36,16 @@ public class MainFIlter implements Filter {
         for (Cookie c : cookies) {
             if (c.getName().equals("sid")) {
                 sid = c;
-                System.out.println("sid "+sid.getValue());
-                
+//                System.out.println("sid " + sid.getValue());
+
                 break;
             }
         }
-        System.out.println("session ID "+s.getId());
-        if(sid != null && (sid.getValue().equals(s.getId()))){
+//        System.out.println("session ID " + s.getId());
+        if (sid != null && (sid.getValue().equals(s.getId()))) {
             chain.doFilter(request, response);
-        }else{
-             ((HttpServletResponse)response).sendRedirect("login");
+        } else {
+            ((HttpServletResponse) response).sendRedirect("login");
         }
 
     }

@@ -1,7 +1,5 @@
 package jv.jpa.saexample.servlets;
 
-import jv.jpa.saexample.db.User;
-import jv.jpa.saexample.db.DbUtil;
 import java.io.IOException;
 import java.io.Writer;
 import java.util.Date;
@@ -12,6 +10,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import jv.jpa.saexample.db.DbUtil;
+import jv.jpa.saexample.db.User;
 
 /**
  *
@@ -32,16 +32,16 @@ public class LoginServlet extends HttpServlet {
         String name = req.getParameter("name");
         String pasword = req.getParameter("password");
         User u = DbUtil.getUserByNameAndPassword(name, pasword);
-        System.out.println("\n\n "+u+"\n\n");
+        System.out.println("\n\n " + u + "\n\n");
         String role = null;
         if (u != null) {
-            role = (String) u.getRole();
-            
+            role = (String) u.getAuthority();
+
             HttpSession s = req.getSession(true);
             s.setAttribute("user", u);
-            System.out.println("s.getAttribute(\"user\") "+s.getAttribute("user"));
+            System.out.println("s.getAttribute(\"user\") " + s.getAttribute("user"));
             s.setAttribute("role", role);
-            System.out.println("s.getAttribute(\"role\") "+s.getAttribute("role"));
+            System.out.println("s.getAttribute(\"role\") " + s.getAttribute("role"));
             Cookie c = new Cookie("sid", s.getId());
             resp.addCookie(c);
             req.getRequestDispatcher("secured").forward(req, resp);
@@ -59,5 +59,4 @@ public class LoginServlet extends HttpServlet {
         System.out.println("LoginServlet initialized");
     }
 
-    
 }
